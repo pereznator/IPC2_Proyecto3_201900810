@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+<!--Enpieza bloque-->
+{% block content %}
+<div class="container mt-3">
+    <h1 class="fw-light">Peticiones</h1>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <button type="submit" name="general" value="general" class="btn btn-link text-decoration-none">General</button>
+            </li>
+            <li class="nav-item">
+                <button type="submit" name="porFecha" value="porFecha" class="btn btn-link text-decoration-none">Por Fecha</button>
+            </li>
+            <li class="nav-item">
+                <button type="submit" name="porError" value="porError" class="btn btn-link text-decoration-none">Por Error</button>
+            </li>
+        </ul>
+    </form>
+
+    {% if general %}
+    <h2 class="text-muted">General</h2>
+
+    <textarea name="texto-general" class="form-control" id="" style="font-size: small;" rows="15"></textarea> {% elif porFecha %}
+    <h2 class="text-muted">Por Fecha</h2>
+    {% elif porError %}
+    <h2 class="text-muted">Por Error</h2>
+    {% endif %}
+</div>
+{% endblock %}

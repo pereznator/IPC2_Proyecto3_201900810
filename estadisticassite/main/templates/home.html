@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+<!--Enpieza bloque-->
+{% block content %}
+<section class="py-3 text-center container">
+    <div class="row py-lg-4">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1 class="fw-light">Bienvenido!</h1>
+                <p class="lead text-muted">Escoge un archivo para empezar el analisis</p>
+                <div class="row">
+                    <div class="col-md-8">
+                        <input class="form-control" name="doc" type="file" id="doc">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" type="submit">Subir Archivo</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+<div class="container">
+    {% if cargado and not error %}
+    <div class="alert alert-success">
+        <p>Se ha cargado el documento con exito!</p>
+    </div>
+    {% if procesado %}
+    <div class="alert alert-success mt-3">
+        <p>Se han guardado los cambios con exito!</p>
+    </div>
+    {% else %}
+    <div class="alert alert-danger mt-3">
+        <p>Ha ocurrido un error con el contenido del archivo</p>
+    </div>
+    {% endif %} {% elif cargado and error %}
+    <div class="alert alert-danger">
+        <p>El archivo no tiene el formato correcto!</p>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}
