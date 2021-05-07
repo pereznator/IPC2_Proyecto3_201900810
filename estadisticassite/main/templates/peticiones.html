@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} {% load static %}
 <!--Enpieza bloque-->
 {% block content %}
 <div class="container mt-3">
@@ -18,14 +18,69 @@
             </li>
         </ul>
     </form>
-
     {% if general %}
-    <h2 class="text-muted">General</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row" style="width: 100%;">
+            <div class="col-md-2">
+                <h2 class="text-muted">General</h2>
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="reset" class="btn btn-danger">Reset</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
-    <textarea name="texto-general" class="form-control" id="" style="font-size: small;" rows="15"></textarea> {% elif porFecha %}
+    <textarea name="texto-general" class="form-control" id="" style="font-size: small;" rows="20">{{textoGeneral}}</textarea> {% elif porFecha %}
     <h2 class="text-muted">Por Fecha</h2>
-    {% elif porError %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-2 text-muted">Elegir Fecha:</div>
+            <div class="col-md-3">
+                <select name="fechaSelect" class="form-select">
+                    <option value="" selected>Elegir Fecha</option>
+                    {% for fecha in fechas %}
+                    <option value="{{fecha}}">{{fecha}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="verFecha" class="btn btn-primary">Ver Estadisticas</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if verFecha %}
+    <p class="text-muted">Viendo {{fechaActiva}}</p>
+    <img src="{% static 'img/usuarios.jpg' %}" class="img-fluid"> {% endif %} {% elif porError %}
     <h2 class="text-muted">Por Error</h2>
-    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-2 text-muted">Elegir Codigo:</div>
+            <div class="col-md-3">
+                <select name="codigoSelect" class="form-select">
+                    <option value="" selected>Elegir Codigo</option>
+                    {% for codigo in codigos %}
+                    <option value="{{codigo}}">{{codigo}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="verCodigo" class="btn btn-primary">Ver Estadisticas</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if verCodigo %}
+    <div class="mx-auto" style="width: 100%;">
+        <p class="text-muted">Viendo {{codigoActivo}}</p>
+        <img src="{% static 'img/codigos.jpg' %}" class="img-fluid mx-auto"> {% endif %} {% endif %}
+    </div>
 </div>
 {% endblock %}
