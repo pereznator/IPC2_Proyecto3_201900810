@@ -4,6 +4,8 @@ import os
 import random
 import requests
 from django.core.files.storage import FileSystemStorage
+import subprocess
+
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 
@@ -140,5 +142,9 @@ def peticiones_view(request):
     return render(request, 'peticiones.html', context)
 
 def ayuda_view(request):
+    base = os.path.dirname(__file__)
+    ruta = os.path.abspath(os.path.join(base, '..', '..', 'documentacion.pdf'))
+    if request.method == 'POST':
+        subprocess.Popen([ruta], shell=True)
     return render(request, 'ayuda.html', {})
 

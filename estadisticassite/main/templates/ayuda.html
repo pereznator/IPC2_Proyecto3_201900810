@@ -2,12 +2,15 @@
 <!--Enpieza bloque-->
 {% block content %}
 <div class="container mt-3">
-    <h1>Ayuda</h1>
-    <hr>
-    <p class="text-muted">Nombre: Joge Antonio Pérez Ordóñez</p>
-    <p class="text-muted">Carnet: 201900810</p>
-    <p class="text-muted">Introducción a la Programación y Computación</p>
-    <p class="text-muted">Sección E</p>
-    <button class="btn btn-outline-primary mt-3">Ver Documentación</button>
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Ayuda</h1>
+        <hr>
+        <p class="text-muted">Nombre: Joge Antonio Pérez Ordóñez</p>
+        <p class="text-muted">Carnet: 201900810</p>
+        <p class="text-muted">Introducción a la Programación y Computación</p>
+        <p class="text-muted">Sección E</p>
+        <button class="btn btn-outline-primary mt-3" type="submit">Ver Documentación</button>
+    </form>
 </div>
 {% endblock %}
